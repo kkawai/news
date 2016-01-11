@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">news</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="time_stamp_just_now">just now</string>
+    <string name="time_stamp_minutes">m</string>
+    <string name="time_stamp_hour">h</string>
+    <string name="time_stamp_hours">h</string>
+    <string name="time_stamp_day">d</string>
+    <string name="time_stamp_days">d</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- general app logging; see MLog.java -->
+    <bool name="is_logging_enabled">true</bool>
+
+    <bool name="is_amazon_build">false</bool>
+
+    <integer name="volley_disk_cache_size_mb">25</integer>
+
+    <bool name="is_ads_enabled">true</bool>
+</resources>
