@@ -12,4 +12,6 @@
     <string name="time_stamp_hours">h</string>
     <string name="time_stamp_day">d</string>
     <string name="time_stamp_days">d</string>
+
+    <string name="menu_settings">Settings</string>
 </resources>

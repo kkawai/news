@@ -34,7 +34,7 @@ import android.media.MediaCodec;
 import android.net.Uri;
 
 /**
- * A {@link RendererBuilder} for streams that can be read using an {@link Extractor}.
+ * A {@link RendererBuilder} for streams that can be getRss using an {@link Extractor}.
  */
 public class ExtractorRendererBuilder implements RendererBuilder {
 

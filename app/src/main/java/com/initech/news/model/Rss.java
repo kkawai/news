@@ -1,14 +1,56 @@
 package com.initech.news.model;
 
-import java.text.DateFormat;
+import android.content.ContentValues;
+import android.database.DatabaseUtils;
+
+import com.initech.news.db.RssDb;
+import com.initech.news.util.StringUtil;
+import com.initech.news.util.TimeUtil;
+
+import java.util.Date;
 
 /**
  * Created by kevin on 1/10/2016.
  */
 public class Rss {
 
+   private int id;
    private String title, link, descr, imageUrl, videoUrl, category, author;
    private long pubDate;//Sat, 07 Sep 2002 00:00:01 GMT
+
+   public Rss() {}
+
+   public Rss(final ContentValues contentValues) {
+      final Integer id = contentValues.getAsInteger(RssDb.RssColumns.COL_ID);
+      if (id != null) {
+         setId(id);
+      }
+      setTitle(StringUtil.unescapeQuotes(contentValues.getAsString(RssDb.RssColumns.COL_TITLE)));
+      setLink(contentValues.getAsString(RssDb.RssColumns.COL_LINK));
+      setDescr(StringUtil.unescapeQuotes(contentValues.getAsString(RssDb.RssColumns.COL_DESCR)));
+      setImageUrl(contentValues.getAsString(RssDb.RssColumns.COL_IMAGE_URL));
+      setVideoUrl(contentValues.getAsString(RssDb.RssColumns.COL_VIDEO_URL));
+      setCategory(StringUtil.unescapeQuotes(contentValues.getAsString(RssDb.RssColumns.COL_CATEGORY)));
+      setAuthor(StringUtil.unescapeQuotes(contentValues.getAsString(RssDb.RssColumns.COL_AUTHOR)));
+      setPubDate(contentValues.getAsLong(RssDb.RssColumns.COL_PUB_DATE));
+   }
+
+   public ContentValues getContentValues() {
+      final ContentValues values = new ContentValues();
+      if (id != 0) {
+         values.put(RssDb.RssColumns.COL_ID, id);
+      }
+      values.put(RssDb.RssColumns.COL_TITLE, DatabaseUtils.sqlEscapeString(getTitle()));
+      values.put(RssDb.RssColumns.COL_LINK, getLink());
+      values.put(RssDb.RssColumns.COL_DESCR, DatabaseUtils.sqlEscapeString(getDescr()));
+      values.put(RssDb.RssColumns.COL_IMAGE_URL, getImageUrl());
+      values.put(RssDb.RssColumns.COL_VIDEO_URL, getVideoUrl());
+      values.put(RssDb.RssColumns.COL_CATEGORY, DatabaseUtils.sqlEscapeString(getCategory()));
+      values.put(RssDb.RssColumns.COL_AUTHOR, DatabaseUtils.sqlEscapeString(getAuthor()));
+      values.put(RssDb.RssColumns.COL_PUB_DATE, getPubDate());
+      return values;
+   }
+
 
    public String getLink() {
       return link;
@@ -22,8 +64,22 @@ public class Rss {
       return descr;
    }
 
-   public void setDescr(String descr) {
-      this.descr = descr;
+   private static String IMG_TAG = "<img src=";
+   private static String P_TAG = "<p>";
+
+   public void setDescr(final String descr) {
+      if (descr.contains(IMG_TAG)) {
+         int i = descr.indexOf(IMG_TAG);
+         String x = descr.substring(i + IMG_TAG.length() + 1, descr.length());
+         imageUrl = x.substring(0, x.indexOf('"'));
+      }
+      if (descr.contains(P_TAG)) {
+         int i = descr.indexOf(P_TAG);
+         String x = descr.substring(i + P_TAG.length(), descr.length());
+         this.descr = x.substring(0, x.indexOf("</p>"));
+      } else {
+         this.descr = descr;
+      }
    }
 
    public String getImageUrl() {
@@ -64,7 +120,7 @@ public class Rss {
    }
 
    public String getAuthor() {
-      return author;
+      return author != null ? author : "";
    }
 
    public void setAuthor(String author) {
@@ -75,8 +131,21 @@ public class Rss {
       this.title = title;
    }
 
+   public String getTimeAgo() {
+      if (pubDate == 0) return "now";
+      return TimeUtil.getTimeAgo(new Date(pubDate));
+   }
+
    @Override
    public String toString() {
-      return "RSS. title: [" + title + "] link: [" + link + "] descr: [" + descr + "] imageUrl: [" + imageUrl + "] videoUrl: [" + videoUrl + "] category: [" + category + "] pubDate: [" + pubDate + "]";
+      return "RSS. time ago: [" + getTimeAgo() + "] author: [" + author + "] title: [" + title + "] link: [" + link + "] descr: [" + descr + "] imageUrl: [" + imageUrl + "] videoUrl: [" + videoUrl + "] category: [" + category + "] pubDate: [" + pubDate + "]";
+   }
+
+   public void setId(final int id) {
+      this.id = id;
+   }
+
+   public int getId() {
+      return id;
    }
 }

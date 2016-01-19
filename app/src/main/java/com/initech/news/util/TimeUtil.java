@@ -21,12 +21,13 @@ import java.util.TimeZone;
  */
 public final class TimeUtil {
 
-    private static final String TAG = TimeUtil.class.getSimpleName();
+    private static final String TAG = "TimeUtil";
 
     private TimeUtil() {
     }
-
+//Tue, 12 Jan 2016 13:00:06 +0000
     private static final SimpleDateFormat TOUR_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleDateFormat RSS_DATE_FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy kk:mm:ss");
 
     public class MonthDay {
 
@@ -161,17 +162,7 @@ public final class TimeUtil {
         }
     }
 
-    public static String getFormattedTweetTime(final String dateStr) {
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy");
-        dateFormat.setLenient(true);
-        Date created = null;
-        try {
-            created = dateFormat.parse(dateStr);
-        } catch (Exception e) {
-            return "";
-        }
-
+    public static String getTimeAgo(final Date created) {
         // today
         Date today = new Date();
 
@@ -206,10 +197,27 @@ public final class TimeUtil {
 
         int n = (int) Math.floor(duration / day);
         if (n < 365) {
-            return n + "d";
+            if (n > 30)
+                return (n / 30) + "month";
+            else
+                return n + "d";
         } else {
             return ">1y";
         }
+    }
+
+    public static String getTimeAgo(final String dateStr) {
+
+        SimpleDateFormat dateFormat = RSS_DATE_FORMAT; //new SimpleDateFormat("EEE MMM dd HH:mm:ss ZZZZZ yyyy");
+        dateFormat.setLenient(true);
+        Date created = null;
+        try {
+            created = dateFormat.parse(dateStr);
+        } catch (Exception e) {
+            return "";
+        }
+
+        return getTimeAgo(created);
     }
 
     /**

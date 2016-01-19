@@ -1,7 +1,10 @@
 package com.initech.news;
 
+import android.util.TimeUtils;
+
 import com.initech.news.model.Rss;
 import com.initech.news.util.MLog;
+import com.initech.news.util.TimeUtil;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -20,10 +23,8 @@ public class RssReader {
 
    private static final String TAG = "RssReader";
 
-   public void read(final String httpUrl) {
-      ArrayList<String> headlines = new ArrayList<>();
-      ArrayList<String> links = new ArrayList<>();
-      ArrayList<Rss> rssList = new ArrayList<>();
+   public ArrayList<Rss> getRss(final String httpUrl) {
+      final ArrayList<Rss> rssList = new ArrayList<>();
       InputStream is=null;
 
       try {
@@ -57,46 +58,72 @@ public class RssReader {
                } else if (xpp.getName().equalsIgnoreCase("title")) {
                   if (insideItem) {
                      String s = xpp.nextText();
-                     headlines.add(s); //extract the headline
-                     MLog.i(TAG, "title: " + s);
+                     //MLog.i(TAG, "title: " + s);
                      rss.setTitle(s);
                   }
                } else if (xpp.getName().equalsIgnoreCase("link")) {
                   if (insideItem) {
                      String s = xpp.nextText();
-                     links.add(s); //extract the link of article
-                     MLog.i(TAG, "link: " + s);
+                     //MLog.i(TAG, "link: " + s);
                      rss.setLink(s);
                   }
                } else if (xpp.getName().equalsIgnoreCase("pubDate")) {
                   if (insideItem) {
                      String s = xpp.nextText();
-                     MLog.i(TAG, "pubDate: " + s);
-                     //todo
+                     //MLog.i(TAG, "pubDate: " + TimeUtil.RSS_DATE_FORMAT.parse(s) + " orig: "+s + " time ago: "+ TimeUtil.getTimeAgo(s));
+                     rss.setPubDate(TimeUtil.RSS_DATE_FORMAT.parse(s).getTime());
                   }
                } else if (xpp.getName().equalsIgnoreCase("dc:creator")) {
                   if (insideItem) {
                      String s = xpp.nextText();
-                     MLog.i(TAG, "creator: " + s);
+                     //MLog.i(TAG, "creator: " + s);
                      rss.setAuthor(s);
                   }
                } else if (xpp.getName().equalsIgnoreCase("category")) {
                   if (insideItem) {
                      String s = xpp.nextText();
-                     MLog.i(TAG, "category: " + s);
-                     rss.setCategory(s);
+                     //MLog.i(TAG, "category: " + s);
+                     if (rss.getCategory() == null)
+                        rss.setCategory(s);
+                  }
+               } else if (xpp.getName().equalsIgnoreCase("media:category")) {
+                  if (insideItem) {
+                     String s = xpp.nextText();
+                     //MLog.i(TAG, "category: " + s);
+                     if (rss.getCategory() == null)
+                        rss.setCategory(s);
+                  }
+               } else if (xpp.getName().equalsIgnoreCase("media:content")) {
+                  if (insideItem) {
+                     rss.setVideoUrl(xpp.getAttributeValue(null, "url"));
                   }
                } else if (xpp.getName().equalsIgnoreCase("description")) {
                   if (insideItem) {
                      String s = xpp.nextText();
-                     MLog.i(TAG, "description: " + s);
+                     //MLog.i(TAG, "description: " + s);
                      rss.setDescr(s);
+                     /*
+                     <div class="rss_thumbnail"><img src="http://www.wired.com/wp-content/uploads/2016/01/Internet-Explorer_1a-660x330.jpg" alt="The Sorry Legacy of Internet Explorer" /></div><p>Starting today, Microsoft will no longer support most versions of Internet Explorer, one of the most contentious pieces of software in history.</p> <p>The post <a rel="nofollow" href="http://www.wired.com/2016/01/the-sorry-legacy-of-microsoft-internet-explorer/">The Sorry Legacy of Internet Explorer</a> appeared first on <a rel="nofollow" href="http://www.wired.com">WIRED</a>.</p>
+                      */
+                  }
+               } else if (xpp.getName().equalsIgnoreCase("media:thumbnail")) {
+                  if (insideItem) {
+//                     xpp.getAttributeValue("", "url");
+//                     String s = xpp.nextText();
+//                     int i = s.indexOf("url=\"");
+//                     if (i != -1) {
+//                        i = i + "url=\"".length();
+//                        s = s.substring(i, s.indexOf("\"",i));
+//                        rss.setImageUrl(s);
+//                     }
+                     rss.setImageUrl(xpp.getAttributeValue(null, "url"));
                   }
                }
 
             } else if(eventType== XmlPullParser.END_TAG && xpp.getName().equalsIgnoreCase("item")){
                insideItem=false;
                rssList.add(rss);
+               MLog.i(TAG,"rss: "+rss.toString());
             }
 
             eventType = xpp.next(); //move to next element
@@ -110,13 +137,17 @@ public class RssReader {
          e.printStackTrace();
       } catch (IOException e) {
          e.printStackTrace();
+      } catch (final Exception e) {
+         e.printStackTrace();
       } finally {
          if (is != null) {
             try {
                is.close();
             }catch(final Exception e) {
+               MLog.e(TAG,"",e);
             }
          }
+         return rssList;
       }
    }
 
