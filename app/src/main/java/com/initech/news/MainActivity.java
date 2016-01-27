@@ -5,7 +5,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -31,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
    public static final String TAG = "MainActivity";
 
    private DrawerLayout mDrawerLayout;
+   private Adapter mAdapter;
+   private boolean mIsDestroyed;
+   private ViewPager mViewPager;
+   private TabLayout mTabLayout;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +55,7 @@ public class MainActivity extends AppCompatActivity {
          setupDrawerContent(navigationView);
       }
 
-      ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-      if (viewPager != null) {
-         setupViewPager(viewPager);
-      }
-
+      mViewPager = (ViewPager) findViewById(R.id.viewpager);
 //      FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //      fab.setOnClickListener(new View.OnClickListener() {
 //         @Override
@@ -65,8 +65,7 @@ public class MainActivity extends AppCompatActivity {
 //         }
 //      });
 
-      TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-      tabLayout.setupWithViewPager(viewPager);
+      mTabLayout = (TabLayout) findViewById(R.id.tabs);
 
       try {
          fetchCategories();
@@ -91,12 +90,21 @@ public class MainActivity extends AppCompatActivity {
       return super.onOptionsItemSelected(item);
    }
 
-   private void setupViewPager(ViewPager viewPager) {
-      Adapter adapter = new Adapter(getSupportFragmentManager());
-//      adapter.addFragment(new CheeseListFragment(), "Category 1");
-//      adapter.addFragment(new CheeseListFragment(), "Category 2");
-//      adapter.addFragment(new CheeseListFragment(), "Category 3");
-      viewPager.setAdapter(adapter);
+   private void loadFragments() {
+      if (mIsDestroyed) return;
+
+      mAdapter = new Adapter(getSupportFragmentManager());
+      final ArrayList<String> categories = RssDb.getInstance().getCategories();
+      for (int i=0; i < categories.size();i++) {
+         final String cat = categories.get(i);
+         final Bundle b = new Bundle();
+         b.putString("cat", cat);
+         final Fragment fragment = new CategoryFragment();
+         fragment.setArguments(b);
+         mAdapter.addFragment(fragment,cat);
+      }
+      mViewPager.setAdapter(mAdapter);
+      mTabLayout.setupWithViewPager(mViewPager);
    }
 
    private void setupDrawerContent(NavigationView navigationView) {
@@ -111,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             });
    }
 
-   private static class Adapter extends FragmentPagerAdapter {
+   private static final class Adapter extends FragmentStatePagerAdapter {
       private final List<Fragment> mFragments = new ArrayList<>();
       private final List<String> mFragmentTitles = new ArrayList<>();
 
@@ -157,8 +165,17 @@ http://www.wired.com/category/photo/feed/    photos
       ThreadWrapper.executeInWorkerThread(new Runnable() {
          @Override
          public void run() {
-            RssDb.getInstance().deleteAll();
 
+            final ArrayList<String> categories = RssDb.getInstance().getCategories();
+            if (categories.size() > 0) {
+               ThreadWrapper.executeInUiThread(new Runnable() {
+                  @Override
+                  public void run() {
+                     loadFragments();
+                  }
+               });
+               return;
+            }
             final ArrayList<Rss> business = new RssReader().getRss("http://www.wired.com/category/business/feed/");
             RssDb.getInstance().insertRss(business);
 
@@ -185,8 +202,21 @@ http://www.wired.com/category/photo/feed/    photos
 
             final ArrayList<Rss> photos = new RssReader().getRss("http://www.wired.com/category/photo/feed/");
             RssDb.getInstance().insertRss(photos);
+
+            ThreadWrapper.executeInUiThread(new Runnable() {
+               @Override
+               public void run() {
+                  loadFragments();
+               }
+            });
          }
       });
 
+   }
+
+   @Override
+   protected void onDestroy() {
+      mIsDestroyed = true;
+      super.onDestroy();
    }
 }

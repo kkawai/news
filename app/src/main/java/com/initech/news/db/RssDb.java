@@ -14,6 +14,7 @@ import android.util.Log;
 import com.initech.news.NewsApplication;
 import com.initech.news.model.Rss;
 import com.initech.news.util.MLog;
+import com.initech.news.util.StringUtil;
 
 import java.util.ArrayList;
 
@@ -124,7 +125,7 @@ public final class RssDb {
       try {
          final SQLiteDatabase db = sqlHelper.getWritableDatabase();
          final long rowId = db.replace(TABLE_NAME, null, rss.getContentValues());
-         MLog.i(TAG, "rss: " + rss + " inserted at " + rowId);
+         MLog.i(TAG, "rss: " + rss + " inserted at " + rowId + " ["+rss.getCategory()+"]");
       } catch (Throwable t) {
          Log.e(TAG, "Error in storing rss: ", t);
       }
@@ -153,22 +154,38 @@ public final class RssDb {
       final ArrayList<Rss> rssList = new ArrayList<>();
       try {
          final SQLiteDatabase db = sqlHelper.getReadableDatabase();
-         final SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
-         qb.setTables(TABLE_NAME);
-         final String sql = String.format("select * from %s where %s = '%s' order by %s",
-               TABLE_NAME, RssColumns.COL_CATEGORY, category, RssColumns.DEFAULT_SORT_ORDER);
+         //final SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+         //qb.setTables(TABLE_NAME);
+         final String sql = String.format("select * from "+TABLE_NAME+"  order by "+RssColumns.DEFAULT_SORT_ORDER);
          final Cursor c = db.rawQuery(sql, null);
          final ContentValues contentValues = new ContentValues();
          while (c.moveToNext()) {
             DatabaseUtils.cursorRowToContentValues(c, contentValues);
             final Rss rss = new Rss(contentValues);
-            rssList.add(rss);
+            if (rss.getCategory().equals(category))
+               rssList.add(rss);
          }
          c.close();
       } catch (Throwable t) {
          MLog.e(TAG, "Error in getting rss: ", t);
       }
       return rssList;
+   }
+
+   public synchronized int deleteRss(final String category) {
+
+      final ArrayList<Rss> rssList = getRss(category);
+      int deleteCount=0;
+      try {
+         final SQLiteDatabase db = sqlHelper.getWritableDatabase();
+         for (int i=0;i < rssList.size();i++) {
+            final Rss rss = rssList.get(i);
+            deleteCount += db.delete(TABLE_NAME, RssColumns.COL_ID + "=" + rss.getId(), null);
+         }
+      } catch (final Throwable t) {
+         MLog.e(TAG, "Error deleting rss: ", t);
+      }
+      return deleteCount;
    }
 
    public synchronized ArrayList<String> getCategories() {
@@ -178,11 +195,11 @@ public final class RssDb {
          final SQLiteDatabase db = sqlHelper.getReadableDatabase();
          final SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
          qb.setTables(TABLE_NAME);
-         final String sql = String.format("select unique(%s) from %s",
+         final String sql = String.format("select distinct(%s) from %s",
                RssColumns.COL_CATEGORY, TABLE_NAME);
          final Cursor c = db.rawQuery(sql, null);
          while (c.moveToNext()) {
-            categories.add(c.getString(1));
+            categories.add(StringUtil.unescapeQuotes(c.getString(0)));
          }
          c.close();
       } catch (Throwable t) {
@@ -190,6 +207,4 @@ public final class RssDb {
       }
       return categories;
    }
-
-
 }
