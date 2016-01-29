@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.google.android.exoplayer.AspectRatioFrameLayout
+        android:id="@+id/video_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center">
+
+        <com.google.android.exoplayer.text.SubtitleLayout
+            android:id="@+id/subtitles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="invisible"/>
+
+        <FrameLayout
+            android:id="@+id/overshadow_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/overshadow"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/universal_40_black"
+                android:visibility="visible"/>
+
+            <View
+                android:id="@+id/overshadow_top_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/overshadow_top_gradient_height"
+                android:layout_gravity="top"
+                android:background="@drawable/gradient_rectangle_top_down"
+                android:visibility="visible"/>
+
+            <View
+                android:id="@+id/overshadow_bottom_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/overshadow_bottom_gradient_height"
+                android:layout_gravity="bottom"
+                android:background="@drawable/gradient_rectangle_bottom_up"
+                android:visibility="visible"/>
+
+        </FrameLayout>
+
+    </com.google.android.exoplayer.AspectRatioFrameLayout>
+
+</merge>

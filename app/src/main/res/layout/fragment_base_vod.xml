@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Note: top_fragment_height will be dynamically set via ScreenUtil.getPortraitVideoHeight() -->
+<com.initech.news.view.drag.DraggablePanel
+    android:id="@+id/draggable_panel"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:draggable_panel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    draggable_panel:enable_horizontal_alpha_effect="true"
+    draggable_panel:top_fragment_height="-2px"
+    draggable_panel:top_fragment_margin_bottom="3dp"
+    draggable_panel:top_fragment_margin_right="3dp"
+    draggable_panel:x_scale_factor="@dimen/x_scale_factor"
+    draggable_panel:y_scale_factor="@dimen/y_scale_factor"/>

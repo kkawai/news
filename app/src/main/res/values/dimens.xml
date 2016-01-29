@@ -8,4 +8,45 @@
     <dimen name="card_margin">16dp</dimen>
     <dimen name="detail_backdrop_height">256dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="top_fragment_margin">10dip</dimen>
+    <item name="x_scale_factor" format="float" type="dimen">1.7</item>
+    <item name="y_scale_factor" format="float" type="dimen">1.7</item>
+
+    <dimen name="overshadow_top_gradient_height">50dp</dimen>
+    <dimen name="overshadow_bottom_gradient_height">50dp</dimen>
+
+    <!-- used in signup and email/password login -->
+    <dimen name="lilliputian_font_size">10sp</dimen>
+
+    <!-- text prompting the user to sign up -->
+    <dimen name="smallest_font_size">12sp</dimen>
+    <!-- 10sp in mockups, but it's too small -->
+
+    <dimen name="small_font_size">14sp</dimen>
+    <!-- 12sp in mockups, but it's too small -->
+
+    <dimen name="medium_font_size">14sp</dimen>
+    <!-- 12sp in mockups, but it's too small -->
+
+    <dimen name="bigger_font_size">20sp</dimen>
+    <!-- 18sp in mockups, but it's too small -->
+
+    <dimen name="heading_font_size">22sp</dimen>
+    <!-- 20sp in mockups, but it's too small -->
+
+    <dimen name="biggest_font_size">36sp</dimen>
+
+    <dimen name="video_control_bar_side_padding">5dp</dimen>
+
+    <style name="WhiteProgressBar">
+        <item name="colorControlActivated">@android:color/white</item>
+    </style>
+
+    <!-- The height of text entry fields -->
+    <dimen name="text_entry_height">50dp</dimen>
+    <!-- left and right margins for text entry fields -->
+    <dimen name="text_entry_margin">50dp</dimen>
+    <!-- common margin used around widgets -->
+    <dimen name="standard_margin">20dp</dimen>
 </resources>

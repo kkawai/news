@@ -25,4 +25,239 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="Font.Theme">
+    </style>
+
+    <style name="Font.Theme.Unspaced">
+    </style>
+
+    <style name="Font.Theme.Unspaced.Grey">
+    </style>
+
+    <style name="Font.Theme.Unspaced.Grey.Normal">
+    </style>
+
+    <style name="Font.Theme.Unspaced.Grey.Normal.Lilliputian">
+        <item name="android:textSize">@dimen/lilliputian_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.Grey.Light">
+        <!-- Roboto Light -->
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.Grey.Light.Smallest">
+        <item name="android:textSize">@dimen/smallest_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.Grey.Light.Small">
+        <item name="android:textSize">@dimen/small_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.Grey.Light.Lilliputian">
+        <item name="android:textSize">@dimen/lilliputian_font_size</item>
+    </style>
+
+    <!-- Don't make text with href links in it allcaps, or you'll lose the underline. -->
+    <style name="Font.Theme.Unspaced.Grey.Light.Lilliputian.Link">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White">
+        <item name="android:textColor">@color/white</item>
+        <!-- links -->
+        <item name="android:textColorLink">@color/white</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Light">
+        <!-- Roboto Light -->
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Light.Medium">
+        <item name="android:textSize">@dimen/medium_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Small">
+        <item name="android:textSize">@dimen/small_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Small.Normalcase">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Bold">
+        <!-- Roboto Bold -->
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Bold.Small">
+        <item name="android:textSize">@dimen/small_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Bold.Medium">
+        <item name="android:textSize">@dimen/medium_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Bold.Bigger">
+        <item name="android:textSize">@dimen/bigger_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Regular">
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Regular.Smallest">
+        <item name="android:textSize">@dimen/smallest_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Regular.Small">
+        <item name="android:textSize">@dimen/small_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Regular.Medium">
+        <item name="android:textSize">@dimen/medium_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Unspaced.White.Regular.Biggest">
+        <item name="android:textSize">@dimen/biggest_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Grey">
+    </style>
+
+    <style name="Font.Theme.Grey.Light">
+        <!-- Roboto Light -->
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Theme.Grey.Regular">
+        <!-- Roboto Regular -->
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Theme.Grey.Regular.Small">
+        <item name="android:textSize">@dimen/small_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Grey.Light.Small">
+        <item name="android:textSize">@dimen/small_font_size</item>
+    </style>
+
+    <style name="Font.Theme.White">
+        <item name="android:textColor">@color/white</item>
+        <!-- links -->
+        <item name="android:textColorLink">@color/white</item>
+    </style>
+
+    <style name="Font.Theme.White.Regular.Small">
+        <item name="android:textSize">@dimen/small_font_size</item>
+    </style>
+
+    <style name="Font.Theme.White.Bold">
+        <!-- Roboto Bold -->
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Font.Theme.White.Bold.Bigger">
+        <item name="android:textSize">@dimen/bigger_font_size</item>
+    </style>
+
+    <style name="Font.Theme.White.Light">
+        <!-- Roboto Light -->
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Theme.White.Light.Medium">
+        <item name="android:textSize">@dimen/medium_font_size</item>
+    </style>
+
+    <style name="Font.Theme.White.Regular">
+        <!-- Roboto Regular -->
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Theme.White.Regular.Medium">
+        <item name="android:textSize">@dimen/medium_font_size</item>
+    </style>
+
+    <style name="Font.Theme.White.Medium">
+        <!-- Roboto Medium -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Theme.White.Medium.Medium">
+        <item name="android:textSize">@dimen/medium_font_size</item>
+    </style>
+
+    <!-- used for text fields filled out by the user -->
+    <style name="Font.Theme.Form">
+        <item name="android:textSize">@dimen/smallest_font_size</item>
+        <item name="android:layout_marginLeft">@dimen/text_entry_margin</item>
+        <item name="android:maxLength">@integer/max_input_field_length</item>
+        <item name="android:maxLines">@integer/max_input_field_rows</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlNormal">@color/medium_grey</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- workaround for an Android core theme bug -->
+    <style name="MyEditText" parent="android:Widget.EditText">
+        <!-- Roboto Light -->
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="MyTextView" parent="android:Widget.TextView">
+        <!-- Roboto Regular -->
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- base font theme -->
+    <style name="Font">
+        <item name="android:textColor">@color/medium_grey</item>
+        <item name="android:textSize">@dimen/smallest_font_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">true</item>
+        <!-- links -->
+        <item name="android:textColorLink">@color/medium_grey</item>
+    </style>
+
+    <!-- used for titles / headings -->
+    <style name="Font.Theme.Heading">
+        <item name="android:textSize">@dimen/heading_font_size</item>
+        <item name="android:textColor">@color/white</item>
+        <!-- Roboto Medium -->
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Font.Theme.Heading.Sub">
+        <item name="android:textColor">@color/offwhite</item>
+    </style>
+
+    <!-- for inline clickable text -->
+    <style name="Font.Theme.Clickable">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Font.Theme.Clickable.Small">
+        <item name="android:textSize">@dimen/small_font_size</item>
+    </style>
+
+    <style name="Font.Theme.Clickable.Lilliputian">
+        <item name="android:textSize">@dimen/lilliputian_font_size</item>
+    </style>
+
+    <!-- for clickable text used as a button -->
+    <style name="Font.Theme.Clickable.Button">
+        <item name="android:textSize">@dimen/medium_font_size</item>
+    </style>
 </resources>

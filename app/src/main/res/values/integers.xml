@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- for any FormEditText field, limit the number of user-provided characters -->
+    <integer name="max_input_field_length">40</integer>
+
+    <!-- for any FormEditText field, limit the number of rows -->
+    <integer name="max_input_field_rows">1</integer>
+
+    <!-- constrain the number of lines in each field on a Spotlight result -->
+    <integer name="max_spotlight_lines_per_field">2</integer>
+
+</resources>

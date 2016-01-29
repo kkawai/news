@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="draggable_panel">
+    <attr name="top_fragment_height" format="dimension"/>
+    <attr name="x_scale_factor" format="float"/>
+    <attr name="y_scale_factor" format="float"/>
+    <attr name="top_fragment_margin_right" format="dimension"/>
+    <attr name="top_fragment_margin_bottom" format="dimension"/>
+    <attr name="enable_horizontal_alpha_effect" format="boolean"/>
+    <attr name="enable_click_to_maximize_panel" format="boolean"/>
+    <attr name="enable_click_to_minimize_panel" format="boolean"/>
+    <attr name="enable_touch_listener_panel" format="boolean"/>
+  </declare-styleable>
+
+  <declare-styleable name="draggable_view">
+    <attr name="top_view_id" format="reference"/>
+    <attr name="bottom_view_id" format="reference"/>
+    <attr name="top_view_height" format="dimension"/>
+    <attr name="top_view_x_scale_factor" format="float"/>
+    <attr name="top_view_y_scale_factor" format="float"/>
+    <attr name="top_view_margin_right" format="dimension"/>
+    <attr name="top_view_margin_bottom" format="dimension"/>
+    <attr name="enable_minimized_horizontal_alpha_effect" format="boolean"/>
+    <attr name="enable_click_to_maximize_view" format="boolean"/>
+    <attr name="enable_click_to_minimize_view" format="boolean"/>
+    <attr name="top_view_resize" format="boolean"/>
+  </declare-styleable>
+
+  <!-- CircularImageView for custom shape -->
+  <declare-styleable name="CircularImageView">
+
+    <!-- Specifies whether or not to draw a circular border around the image. -->
+    <attr name="border" format="boolean"></attr>
+    <!-- Specifies the color of the border draw around the image. (if enabled) -->
+    <attr name="border_color2" format="color"></attr>
+    <!-- Makes the border this pixels wide. (if enabled) -->
+    <attr name="border_width2" format="dimension"></attr>
+    <!-- Specifies whether or not to draw a selector on this view upon touch events. -->
+    <attr name="selector" format="boolean"></attr>
+    <!-- Specifies the color of the selector draw on top of the image upon touch events. (if enabled) -->
+    <attr name="selector_color" format="color"></attr>
+    <!-- Specifies the color of the selector stroke drawn around the image upon touch events. Be sure to provide some opacity. (if enabled) -->
+    <attr name="selector_stroke_color" format="color"></attr>
+    <!-- Makes the selector stroke drawn around the image upon touch events this pixels wide. (if enabled) -->
+    <attr name="selector_stroke_width" format="dimension"></attr>
+    <!-- Specifies whether or not to draw a shadow around your circular image. -->
+    <attr name="shadow" format="boolean"></attr>
+  </declare-styleable>
+
+  <declare-styleable name="CustomCircularImageViewTheme">
+    <attr name="circularImageViewStyle" format="reference" />
+  </declare-styleable>
+
+  <declare-styleable name="SwipeFlingAdapterView">
+    <attr name="SwipeFlingStyle" format="reference"/>
+    <attr name="rotation_degrees" format="float"/>
+    <attr name="min_adapter_stack" format="integer"/>
+    <attr name="max_visible" format="integer"/>
+  </declare-styleable>
+
+</resources>

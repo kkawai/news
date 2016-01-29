@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
          fragment.setArguments(b);
          mAdapter.addFragment(fragment,cat);
       }
+      mViewPager.setOffscreenPageLimit(4);
       mViewPager.setAdapter(mAdapter);
       mTabLayout.setupWithViewPager(mViewPager);
    }
