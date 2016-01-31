@@ -27,6 +27,13 @@
                        android:value=".MainActivity" />
         </activity>
 
+        <activity android:name=".FoldableActivity"
+                  android:parentActivityName=".MainActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                       android:value=".MainActivity" />
+        </activity>
+
         <receiver android:name=".VolumeChangeReceiver">
             <intent-filter>
                 <action android:name="android.media.VOLUME_CHANGED_ACTION"/>

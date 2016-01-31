@@ -136,7 +136,7 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/video_control_bar_side_padding">
 
-                <com.vevocore.views.VevoSeekBar
+                <com.initech.news.view.VevoSeekBar
                     android:id="@+id/scrub_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -39,7 +39,7 @@ public final class WebViewActivity extends AppCompatActivity {
 
       setContentView(R.layout.activity_webview);
 
-      Intent intent = getIntent();
+      final Intent intent = getIntent();
       final String category = intent.getStringExtra("cat");
       final String image = intent.getStringExtra("image");
 

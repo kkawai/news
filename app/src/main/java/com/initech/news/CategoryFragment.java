@@ -78,10 +78,10 @@ public class CategoryFragment extends Fragment {
       final View.OnClickListener clickListener = new View.OnClickListener() {
          @Override
          public void onClick(final View v) {
-            final Intent intent = new Intent(getActivity(),WebViewActivity.class);
+            final Intent intent = new Intent(getActivity(),FoldableActivity.class);
             intent.setData(Uri.parse(rss.getLink()));
             intent.putExtra("cat", rss.getCategory());
-            intent.putExtra("image",rss.getImageUrl());
+            intent.putExtra("title",rss.getTitle());
             startActivity(intent);
          }
       };

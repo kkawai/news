@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_main);
 
-      Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
       setSupportActionBar(toolbar);
 
       final ActionBar ab = getSupportActionBar();
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
       mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-      NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+      final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
       if (navigationView != null) {
          setupDrawerContent(navigationView);
       }
