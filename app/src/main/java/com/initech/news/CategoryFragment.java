@@ -135,6 +135,8 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
    }
 
    private void showProgress() {
+      if (mSwipeRefreshLayout.isRefreshing())
+         return;
       mSwipeRefreshLayout.post(new Runnable() {
          @Override
          public void run() {
@@ -144,6 +146,8 @@ public class CategoryFragment extends Fragment implements SwipeRefreshLayout.OnR
    }
 
    public void hideProgress() {
+      if (!mSwipeRefreshLayout.isRefreshing())
+         return;
       mSwipeRefreshLayout.post(new Runnable() {
          @Override
          public void run() {
