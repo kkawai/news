@@ -26,9 +26,10 @@ public class FoldableActivity extends AppCompatActivity {
 
       final FoldableListLayout foldableListLayout = Views.find(this, R.id.foldable_list);
       final FoldableAdapter adapter = new FoldableAdapter(this);
-      final String cat = getIntent().getStringExtra("cat");
-      final String title = getIntent().getStringExtra("title");
-      final ArrayList<Rss> rss = RssDb.getInstance().getRss(cat);
+      final String originalCategory = getIntent().getStringExtra(Rss.KEY_ORIGINAL_CATEGORY);
+      final String category = getIntent().getStringExtra(Rss.KEY_CATEGORY);
+      final String title = getIntent().getStringExtra(Rss.KEY_TITLE);
+      final ArrayList<Rss> rss = RssDb.getInstance().getRss(originalCategory);
       int i =0;
       for (;i<rss.size();i++) {
          final Rss r = rss.get(i);
@@ -45,7 +46,7 @@ public class FoldableActivity extends AppCompatActivity {
       final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
       setSupportActionBar(toolbar);
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      toolbar.setTitle(cat);
+      getSupportActionBar().setTitle(category);
 
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
          getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

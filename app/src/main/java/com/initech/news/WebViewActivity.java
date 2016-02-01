@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.initech.news.model.Rss;
 import com.initech.news.util.MLog;
 
 /**
@@ -40,8 +41,9 @@ public final class WebViewActivity extends AppCompatActivity {
       setContentView(R.layout.activity_webview);
 
       final Intent intent = getIntent();
-      final String category = intent.getStringExtra("cat");
-      final String image = intent.getStringExtra("image");
+      final String category = intent.getStringExtra(Rss.KEY_CATEGORY);
+      final String originalCategory = intent.getStringExtra(Rss.KEY_ORIGINAL_CATEGORY);
+      final String image = intent.getStringExtra(Rss.KEY_IMAGE);
 
       final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
       setSupportActionBar(toolbar);
@@ -49,7 +51,7 @@ public final class WebViewActivity extends AppCompatActivity {
 
       final CollapsingToolbarLayout collapsingToolbar =
             (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-      collapsingToolbar.setTitle(category);
+      collapsingToolbar.setTitle(category.equals(originalCategory) ? category : (originalCategory + " -> " + category));
 
       final ImageView imageView = (ImageView) findViewById(R.id.backdrop);
       Glide.with(this).load(image).centerCrop().into(imageView);

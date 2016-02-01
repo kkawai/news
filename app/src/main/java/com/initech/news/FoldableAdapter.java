@@ -50,8 +50,9 @@ public class FoldableAdapter extends ItemsAdapter<Rss> implements View.OnClickLi
         final Rss item = (Rss) view.getTag(R.id.list_item_image);
         final Intent intent = new Intent(view.getContext(),WebViewActivity.class);
         intent.setData(Uri.parse(item.getLink()));
-        intent.putExtra("cat", item.getCategory());
-        intent.putExtra("image", item.getImageUrl());
+        intent.putExtra(Rss.KEY_CATEGORY, item.getCategory());
+        intent.putExtra(Rss.KEY_ORIGINAL_CATEGORY, item.getOriginalCategory());
+        intent.putExtra(Rss.KEY_IMAGE, item.getImageUrl());
         view.getContext().startActivity(intent);
     }
 

@@ -11,6 +11,8 @@ import com.initech.news.util.MLog;
 import com.initech.news.util.ThreadWrapper;
 import com.initech.news.util.VolleyHelper;
 
+import java.util.HashMap;
+
 /**
  * Created by kevin on 1/10/2016.
  */
@@ -24,6 +26,7 @@ public class NewsApplication extends Application {
    public static String sVersionName = "";
    public static int sVersionCode;
    public static String sFullVersionName = "";
+   public static final HashMap<String,String> ORIGINAL_CATEGORY_MAP = new HashMap<>();
 
    @Override
    public void onConfigurationChanged(Configuration newConfig) {
@@ -44,6 +47,15 @@ public class NewsApplication extends Application {
          sFullVersionName = sVersionName + '_' + sVersionCode;
       } catch (final Exception ex) {
       }
+      ORIGINAL_CATEGORY_MAP.put("Business","http://www.wired.com/category/business/feed/");
+      ORIGINAL_CATEGORY_MAP.put("Design","http://www.wired.com/category/design/feed/");
+      ORIGINAL_CATEGORY_MAP.put("Technology","http://www.wired.com/category/gear/feed/");
+      ORIGINAL_CATEGORY_MAP.put("Underwire","http://www.wired.com/category/underwire/feed/");
+      ORIGINAL_CATEGORY_MAP.put("Reviews","http://www.wired.com/category/reviews/feed/");
+      ORIGINAL_CATEGORY_MAP.put("Science","http://www.wired.com/category/science/feed/");
+      ORIGINAL_CATEGORY_MAP.put("Security","http://www.wired.com/category/threatlevel/feed/");
+      ORIGINAL_CATEGORY_MAP.put("Videos","http://feeds.cnevids.com/brand/wired.mrss");
+      ORIGINAL_CATEGORY_MAP.put("Photos","http://www.wired.com/category/photo/feed/");
    }
 
    public static NewsApplication getInstance() {

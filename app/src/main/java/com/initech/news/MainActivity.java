@@ -94,11 +94,11 @@ public class MainActivity extends AppCompatActivity {
       if (mIsDestroyed) return;
 
       mAdapter = new Adapter(getSupportFragmentManager());
-      final ArrayList<String> categories = RssDb.getInstance().getCategories();
-      for (int i=0; i < categories.size();i++) {
-         final String cat = categories.get(i);
+      final ArrayList<String> originalCategories = RssDb.getInstance().getOriginalCategories();
+      for (int i=0; i < originalCategories.size();i++) {
+         final String cat = originalCategories.get(i);
          final Bundle b = new Bundle();
-         b.putString("cat", cat);
+         b.putString(Rss.KEY_ORIGINAL_CATEGORY, cat);
          final Fragment fragment = new CategoryFragment();
          fragment.setArguments(b);
          mAdapter.addFragment(fragment,cat);
@@ -106,6 +106,22 @@ public class MainActivity extends AppCompatActivity {
       mViewPager.setOffscreenPageLimit(4);
       mViewPager.setAdapter(mAdapter);
       mTabLayout.setupWithViewPager(mViewPager);
+      mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+         @Override
+         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            ((CategoryFragment)mAdapter.getItem(position)).hideProgress();
+         }
+
+         @Override
+         public void onPageSelected(int position) {
+
+         }
+
+         @Override
+         public void onPageScrollStateChanged(int state) {
+
+         }
+      });
    }
 
    private void setupDrawerContent(NavigationView navigationView) {
@@ -167,8 +183,8 @@ http://www.wired.com/category/photo/feed/    photos
          @Override
          public void run() {
 
-            final ArrayList<String> categories = RssDb.getInstance().getCategories();
-            if (categories.size() > 0) {
+            final ArrayList<String> originalCategories = RssDb.getInstance().getOriginalCategories();
+            if (originalCategories.size() > 0) {
                ThreadWrapper.executeInUiThread(new Runnable() {
                   @Override
                   public void run() {
@@ -178,31 +194,31 @@ http://www.wired.com/category/photo/feed/    photos
                return;
             }
             final ArrayList<Rss> business = new RssReader().getRss("http://www.wired.com/category/business/feed/");
-            RssDb.getInstance().insertRss(business);
+            RssDb.getInstance().insertRss("Business", business);
 
             final ArrayList<Rss> design = new RssReader().getRss("http://www.wired.com/category/design/feed/");
-            RssDb.getInstance().insertRss(design);
+            RssDb.getInstance().insertRss("Design", design);
 
             final ArrayList<Rss> tech = new RssReader().getRss("http://www.wired.com/category/gear/feed/");
-            RssDb.getInstance().insertRss(tech);
+            RssDb.getInstance().insertRss("Technology", tech);
 
             final ArrayList<Rss> underwire = new RssReader().getRss("http://www.wired.com/category/underwire/feed/");
-            RssDb.getInstance().insertRss(underwire);
+            RssDb.getInstance().insertRss("Underwire", underwire);
 
             final ArrayList<Rss> reviews = new RssReader().getRss("http://www.wired.com/category/reviews/feed/");
-            RssDb.getInstance().insertRss(reviews);
+            RssDb.getInstance().insertRss("Reviews", reviews);
 
             final ArrayList<Rss> science = new RssReader().getRss("http://www.wired.com/category/science/feed/");
-            RssDb.getInstance().insertRss(science);
+            RssDb.getInstance().insertRss("Science",science);
 
             final ArrayList<Rss> security = new RssReader().getRss("http://www.wired.com/category/threatlevel/feed/");
-            RssDb.getInstance().insertRss(security);
+            RssDb.getInstance().insertRss("Security",security);
 
             final ArrayList<Rss> videos = new RssReader().getRss("http://feeds.cnevids.com/brand/wired.mrss");
-            RssDb.getInstance().insertRss(videos);
+            RssDb.getInstance().insertRss("Videos", videos);
 
             final ArrayList<Rss> photos = new RssReader().getRss("http://www.wired.com/category/photo/feed/");
-            RssDb.getInstance().insertRss(photos);
+            RssDb.getInstance().insertRss("Photos", photos);
 
             ThreadWrapper.executeInUiThread(new Runnable() {
                @Override

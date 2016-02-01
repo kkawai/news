@@ -15,8 +15,13 @@ import java.util.Date;
 public class Rss {
 
    private int id;
-   private String title, link, descr, imageUrl, videoUrl, category, author;
+   private String title, link, descr, imageUrl, videoUrl, category, author, originalCategory;
    private long pubDate;//Sat, 07 Sep 2002 00:00:01 GMT
+
+   public static final String KEY_CATEGORY = "cat";
+   public static final String KEY_ORIGINAL_CATEGORY = "o_cat";
+   public static final String KEY_TITLE = "title";
+   public static final String KEY_IMAGE = "image";
 
    public Rss() {}
 
@@ -31,6 +36,7 @@ public class Rss {
       setImageUrl(contentValues.getAsString(RssDb.RssColumns.COL_IMAGE_URL));
       setVideoUrl(contentValues.getAsString(RssDb.RssColumns.COL_VIDEO_URL));
       setCategory(StringUtil.unescapeQuotes(contentValues.getAsString(RssDb.RssColumns.COL_CATEGORY)));
+      setOriginalCategory(StringUtil.unescapeQuotes(contentValues.getAsString(RssDb.RssColumns.COL_ORIGINAL_CATEGORY)));
       setAuthor(StringUtil.unescapeQuotes(contentValues.getAsString(RssDb.RssColumns.COL_AUTHOR)));
       setPubDate(contentValues.getAsLong(RssDb.RssColumns.COL_PUB_DATE));
    }
@@ -46,6 +52,7 @@ public class Rss {
       values.put(RssDb.RssColumns.COL_IMAGE_URL, getImageUrl());
       values.put(RssDb.RssColumns.COL_VIDEO_URL, getVideoUrl());
       values.put(RssDb.RssColumns.COL_CATEGORY, DatabaseUtils.sqlEscapeString(getCategory()));
+      values.put(RssDb.RssColumns.COL_ORIGINAL_CATEGORY, DatabaseUtils.sqlEscapeString(getOriginalCategory()));
       values.put(RssDb.RssColumns.COL_AUTHOR, DatabaseUtils.sqlEscapeString(getAuthor()));
       values.put(RssDb.RssColumns.COL_PUB_DATE, getPubDate());
       return values;
@@ -147,5 +154,13 @@ public class Rss {
 
    public int getId() {
       return id;
+   }
+
+   public String getOriginalCategory() {
+      return originalCategory;
+   }
+
+   public void setOriginalCategory(String originalCategory) {
+      this.originalCategory = originalCategory;
    }
 }
